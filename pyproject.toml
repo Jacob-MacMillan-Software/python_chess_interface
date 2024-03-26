@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "chess-interface"
+name = "chess_interface"
 version = "0.1.0"
 description = "Python Library to use to easily support UCI for chess engines and other chess tools."
 authors = ["Jacob <31115470+MrMcGoats@users.noreply.github.com>"]

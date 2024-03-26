@@ -12,7 +12,7 @@ from queue import Queue
 from typing import Callable
 import chess
 
-import main as uci
+from chess_interface import UCI
 
 def move_search(
         position: str,
@@ -46,7 +46,7 @@ def move_search(
 
 if __name__ == "__main__":
     print("Chess Interface Test Engine by Jacob MacMillan Software Inc.")
-    interface = uci.UCI(move_search)
+    interface = UCI(move_search)
     while True:
         command = interface.read()
 
