@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "chess-interface"
+version = "0.1.0"
+description = "Python Library to use to easily support UCI for chess engines and other chess tools."
+authors = ["Jacob <31115470+MrMcGoats@users.noreply.github.com>"]
+license = "LGPL-3.0-only"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+chess = "^1.10.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
