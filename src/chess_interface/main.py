@@ -25,6 +25,7 @@ Author: 2024, Jacob MacMillan Software Inc. (Jacob MacMillan)
 
 import sys
 import time
+import math
 from queue import Queue
 from typing import Callable
 import threading
@@ -124,8 +125,8 @@ class UCI:
 
             # Parse the arguments
             args = command.split(" ")
-            time_limit = 0
-            max_depth = 0
+            time_limit = math.inf
+            max_depth = math.inf
 
             for i in range(1, len(args)):
                 if args[i] == "movetime":
