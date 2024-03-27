@@ -49,14 +49,13 @@ class UCI:
             ):
         self.move_search = move_search
         self.best_move = None # The best move found by the engine so far, in UCI format
-        self.position = "startpos" # Starting position
+        self.position = chess.Board().fen() # Starting position
         self.time_limit = 0 # Time limit in milliseconds
         self.send_queue = Queue() # Queue used to send information to the engine
         self.recv_queue = Queue() # Queue used to recieve information from the engine
         self.max_depth = 0
         self.author = author
         self.engine_name = engine_name
-        self.position = "startpos"
         self.move_thread = None
 
     def read(self) -> str:
@@ -94,20 +93,22 @@ class UCI:
             self.send("readyok")
         elif command.startswith("position"):
             # Constrcut the position fen based on the starting position fen plus any given moves
-            self.position = "startpos"
             args = command.split(" ")
 
             chess_board = chess.Board()
 
-            if args[1] != "startpos":
-                if args[1] == "fen":
-                    self.position = " ".join(args[2:8])
+            if args[1] == "fen":
+                self.position = " ".join(args[2:8])
+                chess_board = chess.Board(self.position)
+                if len(args) > 8 and args[8] == "moves":
+                    for i in range(9, len(args)):
+                        chess_board.push(chess.Move.from_uci(args[i]))
+            elif args[1] == "startpos":
+                if len(args) > 2 and args[2] == "moves":
+                    for i in range(3, len(args)):
+                        chess_board.push(chess.Move.from_uci(args[i]))
 
-            chess_board = chess.Board(self.position)
-
-            if len(args) > 8 and args[8] == "moves":
-                for i in range(9, len(args)):
-                    chess_board.push(chess.Move.from_uci(args[i]))
+            self.position = chess.Board().fen()
 
             self.position = chess_board.fen()
         elif command.startswith("go"):
