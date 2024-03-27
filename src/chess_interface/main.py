@@ -126,7 +126,7 @@ class UCI:
             # Parse the arguments
             args = command.split(" ")
             time_limit = math.inf
-            max_depth = math.inf
+            max_depth = 100
 
             for i in range(1, len(args)):
                 if args[i] == "movetime":
@@ -134,7 +134,7 @@ class UCI:
                 elif args[i] == "depth":
                     max_depth = int(args[i + 1])
                 elif args[i] == "infinite":
-                    time_limit = 999999999
+                    time_limit = math.inf
                 # TODO: Need to handle time control information
                 # winc, binc, wtime, btime, movestogo
                 # TODO: need to handle ponder, mate, and searchmoves
