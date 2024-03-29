@@ -169,6 +169,11 @@ class UCI:
             # This is very engine specific, so we will just ignore it for now
             pass
         elif command.startswith("quit"):
+            # Force exit move search thread if it is running
+            if self.move_thread is not None:
+                self.send_queue.put("stop")
+                self.move_thread.join()
+                self.move_thread = None
             sys.exit(0)
         else:
             pass
