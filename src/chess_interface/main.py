@@ -30,6 +30,7 @@ from queue import Queue
 from typing import Callable
 import threading
 import chess
+import select
 
 # The UCI class is the main class that you will use to interact with the engine.
 # It must take the move search function as an argument, and that function is expected to be able
@@ -70,7 +71,10 @@ class UCI:
         """
 
         try:
-            command = input().strip()
+            if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
+                command = input().strip()
+            else:
+                command = ""
         except (EOFError, KeyboardInterrupt):
             sys.exit(0)
 
