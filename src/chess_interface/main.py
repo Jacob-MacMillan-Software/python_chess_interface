@@ -69,7 +69,10 @@ class UCI:
         :return: None
         """
 
-        command = input().strip()
+        try:
+            command = input().strip()
+        except (EOFError, KeyboardInterrupt):
+            sys.exit(0)
 
         self.process_command(command)
 
